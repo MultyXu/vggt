@@ -20,4 +20,8 @@ with torch.no_grad():
     with torch.amp.autocast(device, dtype=dtype):
         # Predict attributes including cameras, depth maps, and point maps.
         predictions = model(images)
-        print("predictions:", predictions)
+        for k, v in predictions.items():
+            if type(v) is torch.Tensor:
+                print(f"{k}: {v.shape} {v.dtype} {v.device}") 
+            else:
+                print(f"{k}: {v}")
